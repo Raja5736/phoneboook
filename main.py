@@ -48,11 +48,8 @@ def create_phonebook():
         phonebook.append(temp) 
     return phonebook
 
-
 def add_contact(pb):
-    # Adding a contact is the easiest because all you need to do is: 
-	# append another list of details into the already existing list 
-	temp = [] 
+    temp = [] 
     for j in range(1,6):
         if j == 1: 
             name=input("Enter name : ")
@@ -73,10 +70,42 @@ def add_contact(pb):
     return pb
 
 
-    
+def remove_existing(pb): 
+	# This function is to remove a contact's details from existing phonebook 
+	query = str( 
+		input("Please enter the name of the contact you wish to remove: ")) 
+	# We'll collect name of the contact and search if it exists in our phonebook 	
+	temp = 0
+	# temp is a checking variable here. We assigned a value 0 to temp. 
+	
+	for i in range(len(pb)): 
+		if query == pb[i][0]: 
+			temp += 1
+			# Temp will be incremented & it won't be 0 anymore in this function's scope			
+			print(pb.pop(i)) 
+			# The pop function removes entry at index i	
+			print("This query has now been removed") 
+			# printing a confirmation message after removal. 
+			# This ensures that removal was successful. 
+			# After removal we will return the modified phonebook to the calling function 
+			# which is main in our program			
+			return pb 
+	if temp == 0: 
+		# Now if at all any case matches temp shoul've incremented but if otherwise, 
+		# temp will remain 0 and that means the query does not exist in this phonebook 
+		print("Sorry, you have entered an invalid query.\nPlease recheck and try again later.")	
+		return pb 
+  
             
             
-            
+def display_all(pb): 
+	if not pb: 
+	# if display function is called after deleting all contacts then the len will be 0 
+	# And then without this condition it will throw an error 
+		print("List is empty: []") 
+	else: 
+		for i in range(len(pb)): 
+			print(pb[i])           
 
 
 
@@ -88,9 +117,12 @@ print("....................................................................")
 pb=create_phonebook()
 choice=menu()
 
+
 if choice == 1:
     pb=add_contact(pb)
-#elif choice == 2:
-    pb
+elif choice == 2:
+    pb=remove_existing(pb)
+elif choice==5:
+    display_all(pb)   
     
 
